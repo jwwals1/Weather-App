@@ -14,28 +14,23 @@ async function getWeather() {
     const weatherCondition = weatherData.current.condition.text
     console.log(weatherData);
     console.log(weatherCondition)
-    weatherDiv.innerHTML = `<div>Current weather in ${searchResult}</div>
-    <div>Current Temperature: ${weatherData.current.temp_f}° </div>
-    <div>Feels like 
-    ${weatherData.current.feelslike_f}° </div>
-    Condition: ${weatherData.current.condition.text}`;
     getGif(weatherCondition)
-    // getWeahterDiv(weatherData)
+    getWeahterDiv(weatherData)
   } catch (error) {
     alert(error, "please enter a valid")
   }
 }
 
 
-// function getWeahterDiv(weatherData) {
-//   const weatherDiv = document.getElementById("div");
-//   const searchResult = document.getElementById("searchbar").value;
-//   weatherDiv.innerHTML = `<div>Current weather in ${searchResult}</div>
-//   <div>Current Temperature: ${weatherData.current.temp_f}° </div>
-//   <div>Feels like 
-//   ${weatherData.current.feelslike_f}° </div>
-//   Condition: ${weatherData.current.condition.text}`;
-// }
+function getWeahterDiv(weatherData) {
+  const weatherDiv = document.getElementById("weatherReport");
+  const searchResult = document.getElementById("searchbar").value;
+  weatherDiv.innerHTML = `<div>Current weather in ${searchResult}</div>
+  <div>Current Temperature: ${weatherData.current.temp_f}° </div>
+  <div>Feels like 
+  ${weatherData.current.feelslike_f}° </div>
+  Condition: ${weatherData.current.condition.text}`;
+}
 
 async function getGif(weatherCondition) {
   const response = await fetch(

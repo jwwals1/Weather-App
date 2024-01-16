@@ -7,11 +7,13 @@ body {
 }
 
 h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: grid;
     justify-content: center;
     align-items: center;
     color: white;
     font-size: 50px;
+    margin: 0px;
 }
 
 #searchbar {
@@ -43,4 +45,14 @@ background-color: rgb(25, 25, 25);
     height: 400px;
     width: 400px;
     border-radius: 20px;
+}
+
+#weatherGif {
+    width: 400px;
+    height: 250px;
+}
+
+#weatherReport>div {
+    font-size: 20px;
+    margin: 5px;
 }

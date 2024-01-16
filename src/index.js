@@ -1,6 +1,8 @@
 const weatherDiv = document.getElementById("weatherReport");
 const searchButton = document.getElementById("searchButton");
-const weatherGif = document.getElementById("weatherGif");
+const weatherGif = document.createElement('img')
+weatherGif.setAttribute('id', 'weatherGif')
+
 
 
 async function getWeather() {
@@ -15,21 +17,10 @@ async function getWeather() {
     console.log(weatherData);
     console.log(weatherCondition)
     getGif(weatherCondition)
-    getWeahterDiv(weatherData)
+    getWeatherDiv(weatherData)
   } catch (error) {
     alert(error, "please enter a valid")
   }
-}
-
-
-function getWeahterDiv(weatherData) {
-  const weatherDiv = document.getElementById("weatherReport");
-  const searchResult = document.getElementById("searchbar").value;
-  weatherDiv.innerHTML = `<div>Current weather in ${searchResult}</div>
-  <div>Current Temperature: ${weatherData.current.temp_f}° </div>
-  <div>Feels like 
-  ${weatherData.current.feelslike_f}° </div>
-  Condition: ${weatherData.current.condition.text}`;
 }
 
 async function getGif(weatherCondition) {
@@ -39,13 +30,27 @@ async function getGif(weatherCondition) {
   );
   const gifData = await response.json();
   weatherGif.src = gifData.data.images.original.url;
+  weatherDiv.appendChild(weatherGif)
   console.log('test')
 }
 
+
+function getWeatherDiv(weatherData, gifData, weatherCondition, weatherGif) {
+  const weatherDiv = document.getElementById("weatherReport");
+  const searchResult = document.getElementById("searchbar").value;
+  weatherDiv.innerHTML = `<div>Current weather in ${searchResult}</div>
+  <div>Current Temperature: ${weatherData.current.temp_f}° </div>
+  <div>Feels like 
+  ${weatherData.current.feelslike_f}° </div>
+  Condition: ${weatherData.current.condition.text}`
+;
+}
+
+
 searchButton.addEventListener("click", () => {
   getWeather();
-  getGif();
-  // getWeahterDiv()
+  // getGif(weatherCondition);
+  // getWeatherDiv()
 })
 
 

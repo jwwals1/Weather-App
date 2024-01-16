@@ -13,12 +13,7 @@ async function getWeather() {
       { mode: "cors" },
     );
     const weatherData = await response.json();
-    // const currentWeatherData = {
-
-    // }
     const weatherCondition = weatherData.current.condition.text
-    console.log(weatherData);
-    console.log(weatherCondition)
     getGif(weatherCondition)
     getWeatherDiv(weatherData)
   } catch (error) {
@@ -42,32 +37,18 @@ async function getGif(weatherCondition) {
 
 }
 
-
 function getWeatherDiv(weatherData) {
   const weatherDiv = document.getElementById("weatherReport");
   const searchResult = document.getElementById("searchbar").value;
   const currentTemp = weatherData.current.temp_f
   const currentFeelLikeTemp = weatherData.current.feelslike_f
   weatherDiv.innerHTML = `<div>Current weather in ${searchResult}</div>
-  <div>Current Temperature: ${currentTemp}° </div>
+  <div id='currentTempDiv'>Current Temperature: ${currentTemp}° </div>
   <div>Feels like 
   ${currentFeelLikeTemp}° </div>
   <div>Condition: ${weatherData.current.condition.text}</div>`;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  let checkbox = document.querySelector('input[type="checkbox"]');
-
-  checkbox.addEventListener('change', function(currentTemp) {
-    if (checkbox.checked) {
-      currentTemp = ((currentTemp - 32) * (5/9))
-      console.log(currentTemp)
-    } else {
-      console.log('Not checked')
-      currentTemp = currentTemp
-    }
-  });
-});
 
 searchButton.addEventListener("click", () => {
   getWeather();

@@ -19,38 +19,41 @@ async function getWeather() {
     getGif(weatherCondition)
     getWeatherDiv(weatherData)
   } catch (error) {
-    alert(error, "please enter a valid")
+    alert('Please enter a valid location')
   }
 }
 
 async function getGif(weatherCondition) {
-  const response = await fetch(
-    `https://api.giphy.com/v1/gifs/translate?api_key=3ylC2Oj6VF2ARRAKOjZ72lP7WpVBBU0l&s=${weatherCondition}`,
-    { mode: "cors" },
-  );
-  const gifData = await response.json();
-  weatherGif.src = gifData.data.images.original.url;
-  weatherDiv.appendChild(weatherGif)
-  console.log('test')
+  try {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=3ylC2Oj6VF2ARRAKOjZ72lP7WpVBBU0l&s=${weatherCondition}`,
+      { mode: "cors" },
+    );
+    const gifData = await response.json();
+    weatherGif.src = gifData.data.images.original.url;
+    weatherDiv.appendChild(weatherGif)
+    console.log('test')
+  } catch(error) {
+    alert('Please enter a valid location')
+  }
+
 }
 
 
-function getWeatherDiv(weatherData, gifData, weatherCondition, weatherGif) {
+function getWeatherDiv(weatherData) {
   const weatherDiv = document.getElementById("weatherReport");
   const searchResult = document.getElementById("searchbar").value;
   weatherDiv.innerHTML = `<div>Current weather in ${searchResult}</div>
   <div>Current Temperature: ${weatherData.current.temp_f}° </div>
   <div>Feels like 
   ${weatherData.current.feelslike_f}° </div>
-  Condition: ${weatherData.current.condition.text}`
+  <div>Condition: ${weatherData.current.condition.text}</div>`
 ;
 }
 
 
 searchButton.addEventListener("click", () => {
   getWeather();
-  // getGif(weatherCondition);
-  // getWeatherDiv()
 })
 
 
